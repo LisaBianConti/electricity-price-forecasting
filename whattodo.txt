@@ -1,6 +1,0 @@
-Price Forecasting (regression)
-Price Spike Prediction (classification)
-Feature Impact Analysis (interpretability)
-Scenario Analysis (what happens if wind ↑ 20%?)
-
-Can we forecast day-ahead electricity prices using load and renewable generation data?
