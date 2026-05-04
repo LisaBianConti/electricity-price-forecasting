@@ -12,7 +12,7 @@ __pycache__/
 
 # Data files
 data/raw/
-*.csv
+data/processed/
 
 # VS Code settings
 .vscode/
