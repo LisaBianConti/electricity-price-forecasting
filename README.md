@@ -50,10 +50,11 @@ The dataset was cleaned, validated, and transformed into a machine-learning read
 
 ## Modelling Result
 
-Model | MAE | RMSE
-Lag-1 Persistence |	9.05 | 14.25
-1Lag-23 Daily Baseline | 19.74 | 31.94
-LightGBM |	21.68 |	50.80
+|Model | MAE | RMSE|
+|-----|-----|-----|
+|Lag-1 Persistence |	9.05 | 14.25 |
+|1Lag-23 Daily Baseline | 19.74 | 31.94|
+|LightGBM |	21.68 |	50.80|
 
 ## Discussion
 
@@ -63,14 +64,17 @@ The results suggest that additional feature engineering and specialized treatmen
 
 ## Repository Structure
 
-├── notebooks/ 
-├── src/ 
-├── sql/ 
-├── reports/ 
-│ └── figures/ 
-├── README.md 
-├── requirements.txt 
+```
+project/
+├── notebooks/
+├── src/
+├── sql/
+├── reports/
+│   └── figures/
+├── README.md
+├── requirements.txt
 └── .gitignore
+```
 
 ## Planned Improvements
 
