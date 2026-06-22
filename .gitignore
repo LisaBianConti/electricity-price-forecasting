@@ -13,6 +13,7 @@ __pycache__/
 # Data files
 data/raw/
 data/processed/
+*.db
 
 # VS Code settings
 .vscode/
@@ -22,5 +23,3 @@ data/processed/
 
 # Environment variables
 .env
-
-whattodo.txt

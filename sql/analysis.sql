@@ -1,9 +1,9 @@
--- Q1 Price distribution
+-- Q1 Price distribution (query 0)
 
 SELECT [Day-ahead Price (EUR/MWh)]
 FROM electricity;
 
--- Q2 Average price by year
+-- Q2 Average price by year (query 1)
 
 SELECT
     year,
@@ -12,14 +12,35 @@ FROM electricity
 GROUP BY year
 ORDER BY year;
 
--- Q3 Demand vs price
+-- Q3 Top 5 most expensive hours in each year (query 2)
+
+WITH ranked_prices AS (
+    SELECT 
+        year,
+        month,
+        day,
+        hour,
+        [Day-ahead Price (EUR/MWh)] AS price,
+        ROW_NUMBER() OVER (
+            PARTITION BY year
+            ORDER BY [Day-ahead Price (EUR/MWh)] DESC
+        ) AS price_rank
+    FROM electricity
+)
+
+SELECT *
+FROM ranked_prices
+WHERE price_rank <= 5
+ORDER BY year, month, hour, price_rank;
+
+-- Q4 Demand vs price (query 3)
 
 SELECT 
     [Day-ahead Total Load Forecast (MW)_load],
     [Day-ahead Price (EUR/MWh)]
 FROM electricity;
 
--- Q4 Residual demand
+-- Q5 Residual demand (query 4)
 
 SELECT 
 CASE 
@@ -34,7 +55,7 @@ FROM electricity
 GROUP BY demand_bucket
 ORDER BY avg_price;
 
--- Q5 Solar impact 
+-- Q6 Hourly price (query 5)
 
 SELECT 
     hour,
@@ -43,7 +64,7 @@ FROM electricity
 GROUP BY hour
 ORDER BY hour;
 
--- Q6 Solar generations
+-- Q7 Solar generations (query 6)
 
 SELECT 
     hour,
@@ -53,7 +74,7 @@ GROUP BY hour
 ORDER BY hour;
 
 
--- Q7 Negative prices by year
+-- Q8 Negative prices by year (query 7)
 
 SELECT 
     year,
@@ -63,9 +84,9 @@ WHERE [Day-ahead Price (EUR/MWh)] < 0
 GROUP BY year
 ORDER BY year; 
 
--- Q8.1 Extreme price events
+-- Q9.1 Extreme price events 
 
--- Top 1% price range
+-- Top 1% price range (query 8)
 
 SELECT 
     [Day-ahead Price (EUR/MWh)]
@@ -76,18 +97,23 @@ LIMIT (
     FROM electricity
 );
 
+-- Extreme hours (query 9)
+
+WITH extreme_events AS (
+    SELECT * 
+    FROM electricity
+    WHERE [Day-ahead Price (EUR/MWh)] > 490
+)
 SELECT 
     year,
-    COUNT(*) AS extreme_hours,
+    COUNT(*) AS extreme_hours_count,
     ROUND(
         100 * COUNT(*) / SUM(COUNT(*)) OVER (), 2
-    ) AS pct_of_all_extrem_hours
-FROM electricity
-WHERE [Day-ahead Price (EUR/MWh)] > 490
-GROUP BY year
-ORDER BY year;
+    ) AS pct_of_all_extrem
+FROM extreme_events
+GROUP BY year;
 
--- Q8.2 Top 20 price spikes
+-- Q9.2 Top 20 price spikes (query 10)
 
 SELECT 
     [Day-ahead Total Load Forecast (MW)_load],
@@ -98,7 +124,7 @@ FROM electricity
 ORDER BY [Day-ahead Price (EUR/MWh)] DESC
 LIMIT 20;
 
--- Q8.3 Extreme events by hour of the day
+-- Q9.3 Extreme events by hour of the day (query 11)
 
 SELECT 
     hour,
@@ -111,7 +137,7 @@ WHERE [Day-ahead Price (EUR/MWh)] > 490
 GROUP BY hour
 ORDER BY hour;
 
--- Q8.4 Extreme events by month
+-- Q9.4 Extreme events by month (query 12)
 
 SELECT 
     month,
@@ -124,7 +150,7 @@ WHERE [Day-ahead Price (EUR/MWh)] > 490
 GROUP BY month
 ORDER BY month;
 
--- Q8.5 System conditions during extreme events
+-- Q9.5 System conditions during extreme events (query 13)
 
 SELECT 
     AVG([Day-ahead Total Load Forecast (MW)_load]) AS avg_load,
@@ -135,6 +161,8 @@ SELECT
 FROM electricity
 WHERE [Day-ahead Price (EUR/MWh)] > 490;
 
+-- System conditions during all events (query 14)
+
 SELECT 
     AVG([Day-ahead Total Load Forecast (MW)_load]) AS avg_load,
     AVG([Day-ahead (MW)_wind_offshore]) AS avg_wind_offshore,
@@ -142,4 +170,6 @@ SELECT
     AVG([Day-ahead (MW)_solar]) AS avg_solar,
     AVG([Day-ahead Price (EUR/MWh)]) AS avg_price
 FROM electricity;
+
+
     

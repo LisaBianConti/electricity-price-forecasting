@@ -4,8 +4,8 @@ import seaborn as sns
 COLORS = {
     "primary": "#0F4C5C",
     "secondary": "#6D9DC5",
-    "accent": "#E36414",
-    "crisis": "#C1121F"
+    "accent": "#FF7F50",
+    "crisis": "#EF4026"
 }
 
 PRIMARY = "#0F4C5C"

@@ -28,6 +28,7 @@ def plot_actual_pred_scatter(y_actual, y_pred):
             max(y_actual.values.max(), y_pred.max())]
     plt.plot(lims, lims, 
              color = style.COLORS["primary"])
+    plt.savefig("../reports/figures/Actual_vs_predicted.png")
     plt.show()
 
 def plot_residual(y_actual, y_pred):

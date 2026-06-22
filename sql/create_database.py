@@ -7,6 +7,7 @@ conn = sqlite3.connect("electricity.db")
 
 df_alls["year"] = df_alls.index.year
 df_alls["month"] = df_alls.index.month
+df_alls["day"] = df_alls.index.day
 df_alls["hour"] = df_alls.index.hour
 
 df_alls.to_sql(
