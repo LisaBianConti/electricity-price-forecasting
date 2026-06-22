@@ -63,16 +63,16 @@ This outcome aligns with the common challenge in electricity price forecasting: 
 The results suggest that additional feature engineering and specialized treatment of extreme price events are required before machine learning models can consistently exceed baseline performance.
 
 ## Repository Structure
-
-|├── notebooks/ |
-|├── src/ |
-|├── sql/ |
-|├── reports/ |
-|│ └── figures/ |
-|├── README.md |
-|├── requirements.txt |
-|└── .gitignore |
-
+```
+├── notebooks/ 
+├── src/ 
+├── sql/ 
+├── reports/ 
+│ └── figures/ 
+├── README.md 
+├── requirements.txt 
+└── .gitignore 
+```
 ## Planned Improvements
 
 - Hyperparameter optimization using time-series cross-validation
