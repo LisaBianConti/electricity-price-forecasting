@@ -50,7 +50,7 @@ The dataset was cleaned, validated, and transformed into a machine-learning read
 
 ## Modelling Result
 
-Model | MAE | RMSE|
+|Model | MAE | RMSE|
 |-----|-----|-----|
 |Lag-1 Persistence |	9.05 | 14.25 |
 |1Lag-23 Daily Baseline | 19.74 | 31.94|
